@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noor's — Authentic Bangalore Biryani, 100% Halal, Cloud Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #08070a;
+    --black-2: #100e12;
+    --panel: #14121a;
+    --gold: #c9a44c;
+    --gold-bright: #e9c56b;
+    --ember: #8a5a2b;
+    --cream: #efe6d3;
+    --cream-dim: #b9ae9a;
+    --hairline: rgba(201,164,76,0.22);
+    --shadow-gold: rgba(201,164,76,0.14);
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--gold); color: var(--black); }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .noise{
+    position: fixed; inset:0; pointer-events:none; z-index: 2;
+    opacity: 0.035; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .vignette{
+    position: fixed; inset:0; pointer-events:none; z-index:1;
+    background: radial-gradient(ellipse at 50% 30%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  h1,h2,h3, .display{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    color: var(--gold-bright);
+    letter-spacing: 0.01em;
+  }
+
+  .eyebrow{
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.85;
+  }
+
+  .container{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 6vw;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 1.6rem 6vw;
+    background: linear-gradient(to bottom, rgba(8,7,10,0.92), rgba(8,7,10,0));
+    transition: padding 0.3s ease, background 0.3s ease;
+  }
+  header.scrolled{
+    padding: 1rem 6vw;
+    background: rgba(8,7,10,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .logo-mark{
+    display:flex; align-items:center; gap: 0.75rem;
+  }
+  .logo-circle{
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1.3rem;
+    position: relative;
+    background: radial-gradient(circle at 50% 30%, rgba(201,164,76,0.14), transparent 70%);
+  }
+  .logo-circle::after{
+    content:'';
+    position:absolute; inset:-5px;
+    border:1px solid var(--hairline);
+    border-radius:50%;
+  }
+  .logo-word{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+  }
+  .logo-word em{
+    font-style: italic;
+    color: var(--gold-bright);
+  }
+  .logo-tag{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.22em;
+    color: var(--cream-dim);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  nav ul{
+    display:flex; gap: 2.4rem; list-style:none;
+  }
+  nav a{
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: var(--cream-dim);
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.25s;
+  }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background: var(--gold-bright);
+    transition: width 0.3s ease;
+  }
+  nav a:hover{ color: var(--gold-bright); }
+  nav a:hover::after{ width: 100%; }
+
+  .nav-cta{
+    border: 1px solid var(--gold);
+    padding: 0.55rem 1.3rem;
+    font-family:'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-bright);
+    transition: all 0.3s;
+  }
+  .nav-cta:hover{
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .nav-links{ display:flex; align-items:center; gap: 2.4rem; }
+
+  .burger{ display:none; }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height: 100vh;
+    display:flex; align-items:center;
+    position: relative;
+    padding-top: 6rem;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items:center;
+    gap: 3rem;
+    width:100%;
+  }
+
+  .hero-eyebrow{ margin-bottom: 1.4rem; display:flex; align-items:center; gap:0.8rem; }
+  .hero-eyebrow .line{ width: 34px; height:1px; background: var(--gold); }
+
+  .hero h1{
+    font-size: clamp(3.2rem, 6.4vw, 5.6rem);
+    line-height: 1.02;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 .italic{ font-style: italic; color: var(--gold-bright); }
+  .hero h1 .thin{ color: var(--cream); font-weight: 400; }
+
+  .hero p.lede{
+    font-size: 1.08rem;
+    color: var(--cream-dim);
+    max-width: 46ch;
+    line-height: 1.75;
+    margin-bottom: 2.4rem;
+  }
+
+  .hero-ctas{ display:flex; gap: 1.2rem; flex-wrap: wrap; align-items:center; }
+
+  .btn-primary{
+    background: linear-gradient(135deg, var(--gold-bright), var(--gold) 60%, var(--ember));
+    color: var(--black);
+    padding: 0.95rem 2.1rem;
+    font-family:'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px -10px var(--shadow-gold);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 16px 36px -8px var(--shadow-gold); }
+
+  .btn-ghost{
+    color: var(--cream);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 4px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-ghost:hover{ border-color: var(--gold-bright); color: var(--gold-bright); }
+
+  /* signature handi svg */
+  .hero-visual{
+    position: relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-visual svg{ width: 100%; max-width: 420px; height: auto; }
+
+  .steam path{
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    animation: rise 5s ease-in-out infinite;
+    opacity: 0;
+  }
+  .steam path:nth-child(1){ animation-delay: 0s; }
+  .steam path:nth-child(2){ animation-delay: 1.1s; }
+  .steam path:nth-child(3){ animation-delay: 2.2s; }
+
+  @keyframes rise{
+    0%{ stroke-dashoffset: 240; opacity: 0; transform: translateY(0);}
+    15%{ opacity: 0.85; }
+    75%{ opacity: 0.25; }
+    100%{ stroke-dashoffset: 0; opacity: 0; transform: translateY(-26px);}
+  }
+
+  .glow-orb{
+    position:absolute; width: 360px; height:360px; border-radius:50%;
+    background: radial-gradient(circle, rgba(201,164,76,0.16), transparent 70%);
+    filter: blur(10px);
+    z-index:-1;
+  }
+
+  .scroll-cue{
+    position:absolute; bottom: 2.4rem; left: 50%; transform: translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:0.6rem;
+    font-family:'Space Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.2em; color: var(--cream-dim); text-transform:uppercase;
+  }
+  .scroll-cue .stick{
+    width:1px; height: 34px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+  /* ===== SECTION shared ===== */
+  section{ padding: 8.5rem 0; position: relative; }
+  .section-head{ max-width: 640px; margin-bottom: 4rem; }
+  .section-head h2{ font-size: clamp(2.1rem, 4vw, 3rem); margin-top: 0.9rem; line-height:1.1; }
+  .section-head p{ color: var(--cream-dim); margin-top: 1.2rem; line-height: 1.7; font-size: 1rem; max-width: 55ch; }
+
+  .hr-gold{
+    border: none; height:1px;
+    background: linear-gradient(90deg, transparent, var(--hairline), transparent);
+    margin: 0;
+  }
+
+  /* ===== STORY ===== */
+  .story{
+    display:grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 4rem;
+    align-items:start;
+  }
+  .story-portrait{
+    aspect-ratio: 4/5;
+    border: 1px solid var(--hairline);
+    position: relative;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(201,164,76,0.10), transparent 60%),
+      linear-gradient(160deg, var(--panel), var(--black-2));
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .story-portrait .frame-mark{
+    position:absolute; inset: 14px; border: 1px solid var(--hairline);
+  }
+  .story-portrait .initials{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 5.5rem;
+    color: var(--gold);
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+  .story-portrait figcaption{
+    position:absolute; bottom: 1.6rem; left: 1.6rem; right:1.6rem;
+    font-family:'Space Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; color: var(--cream-dim); text-transform:uppercase;
+  }
+
+  .story-copy p{
+    color: var(--cream-dim); line-height: 1.85; font-size: 1.02rem; margin-bottom: 1.4rem;
+  }
+  .story-copy p strong{ color: var(--gold-bright); font-weight: 500; }
+  .story-copy .signoff{
+    margin-top: 2rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-bright);
+    font-size: 1.3rem;
+  }
+
+  /* ===== PROMISE / TRUST BADGES ===== */
+  .promise-grid{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+  }
+  .promise-item{
+    background: var(--black);
+    padding: 2.6rem 1.8rem;
+    transition: background 0.3s;
+  }
+  .promise-item:hover{ background: var(--black-2); }
+  .promise-item .num{
+    font-family:'Space Mono', monospace;
+    font-size: 0.68rem; color: var(--gold); letter-spacing: 0.1em;
+  }
+  .promise-item h3{
+    font-size: 1.4rem; margin: 0.9rem 0 0.7rem;
+  }
+  .promise-item p{ color: var(--cream-dim); font-size: 0.88rem; line-height: 1.6; }
+
+  /* ===== MENU ===== */
+  .menu-list{ display:flex; flex-direction: column; }
+  .menu-row{
+    display:grid;
+    grid-template-columns: 2.6rem 1.4fr 0.9fr auto;
+    align-items:center;
+    gap: 1.6rem;
+    padding: 1.9rem 0;
+    border-bottom: 1px solid var(--hairline);
+    transition: padding-left 0.35s ease;
+  }
+  .menu-row:hover{ padding-left: 0.6rem; }
+  .menu-row:first-child{ border-top: 1px solid var(--hairline); }
+  .menu-row .tag{
+    font-family:'Space Mono', monospace; font-size: 0.7rem; color: var(--gold);
+  }
+  .menu-row h3{ font-size: 1.5rem; font-weight:500; }
+  .menu-row h3 span.sub{
+    display:block; font-family:'Jost',sans-serif; font-size: 0.86rem;
+    color: var(--cream-dim); font-weight:300; margin-top: 0.3rem; letter-spacing: 0.01em;
+  }
+  .menu-row .meat{
+    font-family:'Space Mono', monospace; font-size: 0.72rem; letter-spacing:0.06em;
+    color: var(--cream-dim); text-transform:uppercase;
+  }
+  .menu-row .price{
+    font-family:'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold-bright);
+    text-align:right;
+  }
+
+  /* ===== KITCHEN STATUS ===== */
+  .status-band{
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    padding: 4.2rem 0;
+    background: linear-gradient(180deg, rgba(201,164,76,0.03), transparent);
+  }
+  .status-flex{
+    display:flex; justify-content:space-between; align-items:center; gap: 2rem; flex-wrap:wrap;
+  }
+  .status-left{ max-width: 560px; }
+  .status-dot-row{ display:flex; align-items:center; gap: 0.7rem; margin-bottom: 1rem; }
+  .status-dot{
+    width: 8px; height:8px; border-radius:50%; background: var(--gold-bright);
+    box-shadow: 0 0 12px var(--gold-bright);
+    animation: blink 1.8s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+  .status-left h2{ font-size: 2rem; margin-bottom: 0.9rem; }
+  .status-left p{ color: var(--cream-dim); line-height: 1.75; }
+
+  .status-right{
+    display:flex; flex-direction:column; gap: 1rem; text-align:right;
+  }
+  .call-btn{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 2rem; color: var(--gold-bright);
+    border: 1px solid var(--gold);
+    padding: 1rem 2rem;
+    transition: all 0.3s;
+    letter-spacing: 0.03em;
+  }
+  .call-btn:hover{ background: var(--gold); color: var(--black); }
+  .status-right span{
+    font-family:'Space Mono', monospace; font-size: 0.66rem; color: var(--cream-dim);
+    letter-spacing: 0.14em; text-transform:uppercase;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{ padding: 5rem 0 2.4rem; }
+  .footer-grid{
+    display:grid; grid-template-columns: 1.3fr 0.7fr 0.7fr 0.9fr;
+    gap: 3rem;
+    padding-bottom: 3.5rem;
+  }
+  .footer-brand .logo-word{ font-size: 1.6rem; }
+  .footer-brand p{ color: var(--cream-dim); margin-top: 1.2rem; line-height: 1.7; max-width: 32ch; font-size: 0.92rem; }
+  footer h4{
+    font-family:'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem;
+  }
+  footer ul{ list-style:none; display:flex; flex-direction:column; gap: 0.7rem; }
+  footer ul li a, footer ul li{ color: var(--cream-dim); font-size: 0.9rem; }
+  footer ul li a:hover{ color: var(--gold-bright); }
+  .footer-bottom{
+    border-top: 1px solid var(--hairline);
+    padding-top: 1.8rem;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+    font-family:'Space Mono', monospace; font-size: 0.68rem; color: var(--cream-dim); letter-spacing: 0.05em;
+  }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 920px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-visual{ order:-1; margin-bottom: 1rem; }
+    .hero-visual svg{ max-width: 260px; }
+    .story{ grid-template-columns: 1fr; }
+    .promise-grid{ grid-template-columns: repeat(2,1fr); }
+    .footer-grid{ grid-template-columns: 1fr 1fr; }
+    nav ul{ display:none; }
+    .status-flex{ flex-direction:column; align-items:flex-start; }
+    .status-right{ text-align:left; align-items:flex-start; }
+  }
+  @media (max-width: 600px){
+    .menu-row{ grid-template-columns: 1fr; gap: 0.3rem; }
+    .menu-row .price{ text-align:left; margin-top:0.4rem; }
+    .promise-grid{ grid-template-columns: 1fr; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="vignette"></div>
+
+<header id="siteHeader">
+  <div class="logo-mark">
+    <div class="logo-circle">N</div>
+    <div>
+      <span class="logo-word">Noor<em>'s</em></span>
+      <span class="logo-tag">Authentic Bangalore Biryani</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <nav>
+      <ul>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#promise">Promise</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#order">Order</a></li>
+      </ul>
+    </nav>
+    <a href="tel:+916364812397" class="nav-cta">Call to Order</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-eyebrow"><span class="line"></span><span class="eyebrow">100% Halal · Cloud Kitchen · Bengaluru</span></div>
+      <h1>Authentic <span class="italic">Bangalore</span><br><span class="thin">Biryani.</span></h1>
+      <p class="lede">Noor's is one handi, one steam, one plate — mutton and chicken biryani cooked the way it was meant to be: 100% halal, no artificial colour, no preservatives, made fresh only when you order it.</p>
+      <div class="hero-ctas">
+        <a href="tel:+916364812397" class="btn-primary">Order Now — 6364812397</a>
+        <a href="#story" class="btn-ghost">Read our story ↓</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="glow-orb"></div>
+      <svg viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- steam -->
+        <g class="steam" stroke="#c9a44c" stroke-width="1.6" stroke-linecap="round">
+          <path d="M160 140 C150 110, 175 95, 165 65 C158 45, 172 30, 168 10" />
+          <path d="M200 140 C192 108, 214 92, 204 60 C197 40, 210 24, 206 4" />
+          <path d="M240 140 C232 112, 254 96, 244 66 C238 46, 250 30, 246 12" />
+        </g>
+        <!-- handi (pot) -->
+        <g stroke="#e9c56b" stroke-width="1.8" fill="none" stroke-linejoin="round">
+          <ellipse cx="200" cy="175" rx="98" ry="20" />
+          <path d="M102 175 C102 250, 130 330, 200 340 C270 330, 298 250, 298 175" />
+          <ellipse cx="200" cy="175" rx="60" ry="12" opacity="0.55"/>
+          <path d="M80 168 C60 160, 60 145, 80 138" />
+          <path d="M320 168 C340 160, 340 145, 320 138" />
+        </g>
+        <!-- base rim / lid seal -->
+        <circle cx="200" cy="175" r="98" stroke="#8a5a2b" stroke-width="0.8" opacity="0.5" stroke-dasharray="2 6"/>
+        <!-- stand -->
+        <path d="M150 340 L130 400 M250 340 L270 400 M170 345 L165 400 M230 345 L235 400" stroke="#c9a44c" stroke-width="1.2" opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="stick"></span></div>
+</section>
+
+<section id="story">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Where it began</span>
+      <h2>A promise from Bhargav,<br>a recipe from Noorain.</h2>
+    </div>
+    <div class="story">
+      <figure class="story-portrait reveal">
+        <div class="frame-mark"></div>
+        <span class="initials">BN</span>
+        <figcaption>Founder's vision — est. cloud kitchen</figcaption>
+      </figure>
+      <div class="story-copy reveal">
+        <p>Noor's began as a simple frustration: biryani had stopped tasting like biryani. Colours came from a bottle, meat sat frozen for weeks, and "fresh" was just a word on a menu. <strong>Bhargav</strong> set out to build something different — a kitchen that would show people what authentic biryani actually tastes like.</p>
+        <p>Every handi is prepared using recipes and technique from <strong>Noorain</strong>, cooked in small batches with fresh mutton and chicken sourced on the day of cooking. No artificial colour goes into the rice — the amber you see is from real saffron and slow-caramelised onions, exactly as it should be.</p>
+        <p>We only cook on demand. There's no stockpile, no reheating, no shortcuts — just authentic Bangalore-style biryani, entirely halal, made fresh and delivered the way it left the handi.</p>
+        <p class="signoff">— cooked fresh, kept halal, served honest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr-gold">
+
+<section id="promise">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Noor's promise</span>
+      <h2>Five things we never compromise on.</h2>
+    </div>
+    <div class="promise-grid reveal">
+      <div class="promise-item">
+        <span class="num">01</span>
+        <h3>100% Halal</h3>
+        <p>Every cut of mutton and chicken we cook is entirely halal, no exceptions.</p>
+      </div>
+      <div class="promise-item">
+        <span class="num">02</span>
+        <h3>No artificial colour</h3>
+        <p>Golden rice comes from real saffron and caramelised onion — never a bottle.</p>
+      </div>
+      <div class="promise-item">
+        <span class="num">03</span>
+        <h3>No preservatives</h3>
+        <p>Nothing sits in the kitchen waiting. What isn't fresh, doesn't go in the handi.</p>
+      </div>
+      <div class="promise-item">
+        <span class="num">04</span>
+        <h3>Fresh mutton & chicken</h3>
+        <p>Sourced on the day of cooking, never frozen and thawed for later.</p>
+      </div>
+      <div class="promise-item">
+        <span class="num">05</span>
+        <h3>Cooked on demand</h3>
+        <p>Every order is a fresh handi — high demand means more batches, never bigger ones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Signature handis</span>
+      <h2>The menu, kept honest and short.</h2>
+      <p>A tight menu, cooked properly, beats a long one cooked in a hurry. This is what leaves our kitchen.</p>
+    </div>
+    <div class="menu-list reveal">
+      <div class="menu-row">
+        <span class="tag">01</span>
+        <h3>Noor's Mutton Biryani <span class="sub">Slow-cooked mutton, long-grain rice, Bangalore-style</span></h3>
+        <span class="meat">Mutton</span>
+        <span class="price">₹340</span>
+      </div>
+      <div class="menu-row">
+        <span class="tag">02</span>
+        <h3>Noor's Chicken Biryani <span class="sub">Bone-in chicken, saffron rice, fried onion</span></h3>
+        <span class="meat">Chicken</span>
+        <span class="price">₹260</span>
+      </div>
+      <div class="menu-row">
+        <span class="tag">03</span>
+        <h3>Chicken 65 Biryani <span class="sub">Our chicken biryani with a spiced chicken 65 topping</span></h3>
+        <span class="meat">Chicken</span>
+        <span class="price">₹290</span>
+      </div>
+      <div class="menu-row">
+        <span class="tag">04</span>
+        <h3>Mutton Boti Biryani <span class="sub">Extra mutton boti pieces, deep slow-cooked flavour</span></h3>
+        <span class="meat">Mutton</span>
+        <span class="price">₹380</span>
+      </div>
+      <div class="menu-row">
+        <span class="tag">05</span>
+        <h3>Raita & Salan <span class="sub">Served alongside every handi, made fresh daily</span></h3>
+        <span class="meat">Add-on</span>
+        <span class="price">₹40</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="status-band" id="order">
+  <div class="container status-flex reveal">
+    <div class="status-left">
+      <div class="status-dot-row">
+        <span class="status-dot"></span>
+        <span class="eyebrow">Currently operating</span>
+      </div>
+      <h2>A cloud kitchen today.<br>A home for Noor's, soon.</h2>
+      <p>Right now, Noor's lives entirely as a cloud kitchen — every order cooked fresh and sent straight from our kitchen to your door. We're working toward opening our first physical outlet very soon, where you'll be able to walk in and watch the handi open yourself.</p>
+    </div>
+    <div class="status-right">
+      <a href="tel:+916364812397" class="call-btn">6364812397</a>
+      <span>Call or WhatsApp to order</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-word">Noor<em>'s</em></span>
+        <p>Authentic Bangalore biryani, 100% halal, cooked fresh with no artificial colour and no preservatives. A cloud kitchen today, with a physical home on the way.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#promise">Our Promise</a></li>
+          <li><a href="#menu">Menu</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kitchen</h4>
+        <ul>
+          <li>Cloud Kitchen · Active</li>
+          <li>Physical Outlet · Coming Soon</li>
+          <li>Fresh, cooked on demand</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Order</h4>
+        <ul>
+          <li><a href="tel:+916364812397">6364812397</a></li>
+          <li>Call or WhatsApp</li>
+          <li>Delivered fresh, straight from the handi</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Noor's — Cloud Kitchen. Recipes by Noorain. Vision by Bhargav.</span>
+      <span>Bengaluru, India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
